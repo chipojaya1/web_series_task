@@ -1,0 +1,54 @@
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <!--  <link rel="stylesheet" href="./normalize.css"> -->
+  <!--  <link rel="stylesheet" href="./task.css"> -->
+    <title>Webseries Task Challenge</title>
+    <style type="text/css"/>
+  </head>
+  <body>
+    < h1 > Goya Challenge </ h1 >
+    <% require 'pg' %>
+    <% connection = PG::connect(dbname: "goya") %>
+    <% connection.internal_encoding = "UTF-8" %>
+    <form action="indicate.cgi" method="POST">
+       Please enter the input here <br> <br>
+       <p><input type="text" name="input" value="">
+       </p>
+       <p><input type="submit" value="send" class="button"> <input type="reset" value="reset" class="button">
+       </p>
+    </form>
+    <% result = connection.exec("SELECT * FROM crops WHERE NOT give_for = 'self_consumption';") %>
+    <% data = [] %>
+    <% result.each do |record| %>
+      <% data << "length：#{record["length"]} weight：#{record["weight"]} quality：#{record["quality"]} seller：#{record["give_for"]}" %>
+    <% end %>
+    <form action="goya.cgi" method="POST">
+      Clich here for sell destination info page of the poor quality crops other than self-consumption
+       <br> <br>
+       <!-- Substitute the data you want to send for value -->
+       <!-- Use name="goya" as a landmark for information -->
+       <p><input type="text" name="goya" value="<%= data.join(' ') %>">
+       </p>
+       <p><input type="submit" value="send" class="button"> <input type="reset" value="reset" class="button">
+       </p>
+    </form>
+    <% result_poor = connection.exec("SELECT * FROM crops WHERE quality = 'poor';") %>
+    <% data_poor = [] %>
+    <% result_poor.each do |record_false| %>
+      <%  data_poor << "length：#{record_poor["length"]} weight：#{record_poor["weight"]} quality：#{record_poor["quality"]}　seller：#{record_poor["give_for"]}" %>
+    <% end %>
+    <form action="goyadb.cgi" method="POST">
+       Clich here for info page for all crops on Goya
+       <br> <br>
+       <!-- Substitute the data you want to send for value -->
+       <!-- Use name="goya" as a landmark for information -->
+      <p><input type="text" name="goyadb" value="<%= data_db.join(' ') %>">
+      </p>
+      <p><input type="submit" value="send" class="button"> <input type="reset" value="reset" class="button">
+    </form>
+  <footer class="footer">
+    <p> Copyright © This page belongs to GOYA Database.</p>
+  </footer>
+  </body>
+</html>
