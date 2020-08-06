@@ -20,7 +20,14 @@
     <% data = [] %>
     <% result.each do |record| %>
      <% data << "weight：#{record["weight"]}　sold by：#{record["give_for"]}" %>
-     <% end %>
+    <% end %>
+    <form action="goya.cgi" method="POST">
+      Clich here for info page of poor quality bitter gourd crops other than self consumption<br><br>
+       <!-- Substitute the data you want to send for value -->
+       <!-- Use name="goya" as a landmark for information -->
+       <input type="text" name="goya" value="<%= data.join(' ') %>">
+       <input type="submit" name="send"> <input type="reset" name="reset">
+    </form>
      <form action="goyadb.cgi" method="POST">
        Clich here for info page of bitter gourd crops and seller<br><br>
         <!-- Substitute the data you want to send for value -->
@@ -33,18 +40,6 @@
      <% result_poor.each do |record_false| %>
        <%  data_poor << "length：#{record_false["length"]} weight：#{record_false["weight"]} quality：#{record_false["quality"]}　seller：#{record_false["give_for"]}" %>
      <% end %>
-    <form action="goya.cgi" method="POST">
-      Clich here for info page of poor quality bitter gourd crops other than self consumption<br><br>
-       <!-- Substitute the data you want to send for value -->
-       <!-- Use name="goya" as a landmark for information -->
-       <input type="text" name="goyadb" value="<%= data.join(' ') %>">
-       <input type="submit" name="send"> <input type="reset" name="reset">
-    </form>
-    <% result_poor = connection.exec("SELECT * FROM crops WHERE quality = 'false';") %>
-    <% data_poor = [] %>
-    <% result_poor.each do |record_false| %>
-      <% data_poor << "length：#{record_false["length"]} weight：#{record_false["weight"]} quality：#{record_false["quality"]}　seller：#{record_false["give_for"]}" %>
-    <% end %>
     <form action="goyapoor.cgi" method="POST">
        Clich here for  info page of poor quality bitter gourd crops<br><br>
        <!-- Substitute the data you want to send for value -->
