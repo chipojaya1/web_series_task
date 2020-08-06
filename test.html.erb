@@ -1,54 +1,61 @@
 <html>
   <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-  <!--  <link rel="stylesheet" href="./normalize.css"> -->
-  <!--  <link rel="stylesheet" href="./task.css"> -->
-    <title>Webseries Task Challenge</title>
-    <style type="text/css"/>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+    <title>Webseries Task Goya Challenge</title>
   </head>
   <body>
-    < h1 > Goya Challenge </ h1 >
+    <h1> Welcome to Goya Bitter Gourd </h1>
     <% require 'pg' %>
     <% connection = PG::connect(dbname: "goya") %>
     <% connection.internal_encoding = "UTF-8" %>
+    <!-- the enclosed and is content to the form, statement that it sends to the Indicate.Rb (Cgi) -->
     <form action="indicate.cgi" method="POST">
-       Please enter the input here <br> <br>
-       <p><input type="text" name="input" value="">
-       </p>
-       <p><input type="submit" value="send" class="button"> <input type="reset" value="reset" class="button">
-       </p>
+      Please enter the input below<br><br>
+      <!-- The information entered in this input will be sent as data with the submit button of submit name='input'-->
+      <input type="text" name="input"><br>
+      <input type="submit" name="send"> <input type="reset" name="reset">
     </form>
-    <% result = connection.exec("SELECT * FROM crops WHERE NOT give_for = 'self_consumption';") %>
+    <!--put the pg library connection information to the goya database in the connection variable -->
+    <% result = connection.exec("SELECT * FROM crops WHERE NOT give_for ='self consumption';") %>
     <% data = [] %>
     <% result.each do |record| %>
-      <% data << "length：#{record["length"]} weight：#{record["weight"]} quality：#{record["quality"]} seller：#{record["give_for"]}" %>
-    <% end %>
+     <% data << "weight：#{record["weight"]}　sold by：#{record["give_for"]}" %>
+     <% end %>
+     <form action="goyadb.cgi" method="POST">
+       Clich here for info page of bitter gourd crops and seller<br><br>
+        <!-- Substitute the data you want to send for value -->
+        <!-- Use name="goya" as a landmark for information -->
+        <input type="text" name="goya" value="<%= data.join(' ') %>">
+        <input type="submit" name="send"> <input type="reset" name="reset">
+     </form>
+     <% result_poor = connection.exec("SELECT * FROM crops WHERE quality = 'false';") %>
+     <% data_poor = [] %>
+     <% result_poor.each do |record_false| %>
+       <%  data_poor << "length：#{record_poor["length"]} weight：#{record_poor["weight"]} quality：#{record_poor["quality"]}　seller：#{record_poor["give_for"]}" %>
+     <% end %>
     <form action="goya.cgi" method="POST">
-      Clich here for sell destination info page of the poor quality crops other than self-consumption
-       <br> <br>
+      Clich here for info page of poor quality bitter gourd crops other than self consumption<br><br>
        <!-- Substitute the data you want to send for value -->
        <!-- Use name="goya" as a landmark for information -->
-       <p><input type="text" name="goya" value="<%= data.join(' ') %>">
-       </p>
-       <p><input type="submit" value="send" class="button"> <input type="reset" value="reset" class="button">
-       </p>
+       <input type="text" name="goyadb" value="<%= data.join(' ') %>">
+       <input type="submit" name="send"> <input type="reset" name="reset">
     </form>
-    <% result_poor = connection.exec("SELECT * FROM crops WHERE quality = 'poor';") %>
+    <% result_poor = connection.exec("SELECT * FROM crops WHERE quality = 'false';") %>
     <% data_poor = [] %>
-    <% result_poor.each do |record_false| %>
-      <%  data_poor << "length：#{record_poor["length"]} weight：#{record_poor["weight"]} quality：#{record_poor["quality"]}　seller：#{record_poor["give_for"]}" %>
+    <% result_poor.each do |record_poor| %>
+      <% data_poor << "length：#{record_poor["length"]} weight：#{record_poor["weight"]} quality：#{record_poor["quality"]}　seller：#{record_poor["give_for"]}" %>
     <% end %>
-    <form action="goyadb.cgi" method="POST">
-       Clich here for info page for all crops on Goya
-       <br> <br>
+    <form action="goyapoor.cgi" method="POST">
+       Clich here for  info page of poor quality bitter gourd crops<br><br>
        <!-- Substitute the data you want to send for value -->
        <!-- Use name="goya" as a landmark for information -->
-      <p><input type="text" name="goyadb" value="<%= data_db.join(' ') %>">
-      </p>
-      <p><input type="submit" value="send" class="button"> <input type="reset" value="reset" class="button">
+      <input type="text" name="goyapoor" value="<%= data_poor.join(' ') %>">
+      <input type="submit" name="send"> <input type="reset" name="reset">
     </form>
-  <footer class="footer">
-    <p> Copyright © This page belongs to GOYA Database.</p>
-  </footer>
+    <hr>
+    <img src="./goya.png" class="logo_image">
+    <footer class="footer">
+      <p> Copyright © This info of crops belongs to GOYA Bitter Gourd.</p>
+    </footer>
   </body>
 </html>

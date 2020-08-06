@@ -1,18 +1,18 @@
 # Use pg library
 require 'pg'
-Connect to goyaDB from ruby ​​by #PG::connect(dbname: "goya")
-# Store the information that you are connected in a variable named connection
+# PG::connect(dbname: "goya"), Connect from ruby to goyaDB
+# to store the information that was connected to variable named Connection
 connection = PG::connect(dbname: "goya")
 connection.internal_encoding = "UTF-8"
 begin
-  # Operate PostgreSQL using connection variable
-  # .execで、goyaDBに"select weight, give_for from crops;"
-  Directly execute the SQL statement of # and store the result in the result variable
+  # operate PostgreSQL using connection variable
+  # exec、goyaDB direclty with the "select weight, give_for from crops;"
+  # execute and store the result from SQL statement
   result = connection.exec("select weight, give_for from crops;")
   # Process each fetched line
   result.each do |record|
-      # Fetch each line and output it on the terminal with puts
-      puts  "Size of bitter gourd: #{ record [ "weight" ] }　Sold to: #{ record [ "give_for" ] } "
+      # Get each line and output it on the terminal with puts
+      puts "weight of poor crops: #{record["weight"]}　sold by: #{record["give_for"]}."
   end
 ensure
   # Finally, close the database connection with .finish

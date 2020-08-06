@@ -10,7 +10,6 @@ server = WEBrick::HTTPServer.new({
 server.mount('/test', WEBrick::HTTPServlet::ERBHandler, 'test.html.erb')
 server.mount('/indicate.cgi', WEBrick::HTTPServlet::CGIHandler, 'indicate.rb')
 server.mount('/goya.cgi', WEBrick::HTTPServlet::CGIHandler, 'goya.rb')
-server.mount('/', WEBrick::HTTPServlet::ERBHandler, 'test2.html.erb')
-server.mount('/goya_false.cgi', WEBrick::HTTPServlet::CGIHandler, 'goya_false.rb')
-server.mount('/goya2.cgi', WEBrick::HTTPServlet::CGIHandler, 'goya2.rb')
+server.mount('/goyadb.cgi', WEBrick::HTTPServlet::CGIHandler, 'goyadb.rb')
+server.mount('/goyapoor.cgi', WEBrick::HTTPServlet::CGIHandler, 'goyapoor.rb')
 server.start
