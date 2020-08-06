@@ -16,7 +16,7 @@
       <input type="submit" name="send"> <input type="reset" name="reset">
     </form>
     <!--put the pg library connection information to the goya database in the connection variable -->
-    <% result = connection.exec("SELECT * FROM crops WHERE NOT give_for ='self consumption';") %>
+    <% result = connection.exec("SELECT * FROM crops WHERE NOT give_for ='自家消費';") %>
     <% data = [] %>
     <% result.each do |record| %>
      <% data << "weight：#{record["weight"]}　sold by：#{record["give_for"]}" %>
