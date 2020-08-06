@@ -28,11 +28,10 @@
        <input type="text" name="goya" value="<%= data.join(' ') %>">
        <input type="submit" name="send"> <input type="reset" name="reset">
     </form>
-
-    <% result_db = connection.exec("SELECT * FROM crops WHERE NOT give_for ='自家消費';") %>
-    <% data_db = [] %>
-    <% result.each do |record_db| %>
-      <%  data_db << "length：#{record_db["length"]} weight：#{record_db["weight"]} quality：#{record_db["quality"]}　seller：#{record_db["give_for"]}" %>
+    <% result = connection.exec("SELECT * FROM crops WHERE NOT give_for = 'self consumption';") %>
+    <% data = [] %>
+    <% result.each do |record| %>
+      <%  data << "length：#{record["length"]} weight：#{record["weight"]} quality：#{record["quality"]}　seller：#{record["give_for"]}" %>
     <% end %>
      <form action="goyadb.cgi" method="POST">
        Clich here for info page of bitter gourd crops and seller<br><br>
