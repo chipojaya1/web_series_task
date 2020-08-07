@@ -16,18 +16,6 @@
       <input type="submit" name="send"> <input type="reset" name="reset">
     </form>
     <!--put the pg library connection information to the goya database in the connection variable -->
-    <% result = connection.exec("SELECT * FROM crops WHERE NOT give_for ='self consumption';") %>
-    <% data = [] %>
-    <% result.each do |record| %>
-     <% data << "weight：#{record["weight"]}　sold by：#{record["give_for"]}" %>
-    <% end %>
-    <form action="goya.cgi" method="POST">
-      Clich here for info page of poor quality bitter gourd crops other than self consumption<br><br>
-       <!-- Substitute the data you want to send for value -->
-       <!-- Use name="goya" as a landmark for information -->
-       <input type="text" name="goya" value="<%= data.join(' ') %>">
-       <input type="submit" name="send"> <input type="reset" name="reset">
-    </form>
     <% result = connection.exec("SELECT * FROM crops WHERE NOT give_for = 'self consumption';") %>
     <% data = [] %>
     <% result.each do |record| %>
