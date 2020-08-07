@@ -8,7 +8,7 @@ get = cgi['goyadb']
 # Return the response with HTML
 "<html>
   <body>
-    <p>Information of the poor crops sold other than self consumption is as follows</p>
+    <p>Information of the bitter gourd crops sold other than self consumption is as follows</p>
     Text string: #{get}
   </body>
 </html>"
