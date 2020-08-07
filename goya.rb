@@ -8,7 +8,7 @@ get = cgi['goya']
 # Return the response with HTML
 "<html>
   <body>
-    <p>Information on low quality crops is as follows</p>
+    <p>Information on bitter gourd crops is as follows</p>
     Text string: #{get}
   </body>
 </html>"
